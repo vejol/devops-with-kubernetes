@@ -1,0 +1,20 @@
+{
+  "name": "log-output",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vejol/devops-with-kubernetes.git"
+  },
+  "author": "Vesa Jolkkonen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vejol/devops-with-kubernetes/issues"
+  },
+  "homepage": "https://github.com/vejol/devops-with-kubernetes#readme",
+  "description": ""
+}

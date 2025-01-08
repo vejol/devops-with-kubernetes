@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: vesajo/todo-app@sha256:latest
+          image: vesajo/todo-app@sha256:875d2125e2ff100961c70f0435939e2dd8ce95a69e25e03f510e017e9ca4c243

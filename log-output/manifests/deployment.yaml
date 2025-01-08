@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: log-output
-          image: vesajo/log-output:latest
+          image: vesajo/log-output@sha256:63bf73abf8d21de01da03d239814e1068589e655f46ea8623b62e8830182f0f2

@@ -1,0 +1,12 @@
+{
+  "name": "ping-pong",
+  "version": "0.0.1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vesa Jolkkonen",
+  "license": "ISC",
+  "description": ""
+}

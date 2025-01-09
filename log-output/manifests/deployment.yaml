@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
+      volumes:
+        - name: log-output-volume
+          emptyDir: {}
       containers:
-        - name: log-output
-          image: vesajo/log-output@sha256:63bf73abf8d21de01da03d239814e1068589e655f46ea8623b62e8830182f0f2
+        - name: hash-generator
+          image: vesajo/hash-generator@sha256:a7a13955b47b9ce145fa1511e7fde1e771505c49b52e18e4dc4cc48b425b8322
+          volumeMounts:
+            - name: log-output-volume
+              mountPath: /usr/src/app/files
+        - name: hash-outputter
+          image: vesajo/hash-outputter@sha256:f8920baa0809d0258fc39e9b741c142be41fefa50ed1c55dfc93e214bf9d9747
+          volumeMounts:
+            - name: log-output-volume
+              mountPath: /usr/src/app/files

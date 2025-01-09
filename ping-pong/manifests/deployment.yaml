@@ -12,6 +12,13 @@ spec:
       labels:
         app: ping-pong
     spec:
+      volumes:
+        - name: shared
+          persistentVolumeClaim:
+            claimName: log-output-claim
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:0647d46747682fa38e1a4422792ba827e6fa55e4a957ac013955874d168b0462
+          image: vesajo/ping-pong@sha256:1490c241ef027222aeb006a4fcde93e5e69806842fb376b1259bd32a32510218
+          volumeMounts:
+            - name: shared
+              mountPath: /usr/src/app/shared

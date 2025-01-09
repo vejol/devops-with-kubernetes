@@ -15,6 +15,9 @@ spec:
       volumes:
         - name: log-output-volume
           emptyDir: {}
+        - name: shared
+          persistentVolumeClaim:
+            claimName: log-output-claim
       containers:
         - name: hash-generator
           image: vesajo/hash-generator@sha256:a7a13955b47b9ce145fa1511e7fde1e771505c49b52e18e4dc4cc48b425b8322
@@ -22,7 +25,9 @@ spec:
             - name: log-output-volume
               mountPath: /usr/src/app/files
         - name: hash-outputter
-          image: vesajo/hash-outputter@sha256:f8920baa0809d0258fc39e9b741c142be41fefa50ed1c55dfc93e214bf9d9747
+          image: vesajo/hash-outputter@sha256:aacbfd39fceed9da64a2b7fd351533983216a7625c082e8644770cda8defbdf4
           volumeMounts:
             - name: log-output-volume
               mountPath: /usr/src/app/files
+            - name: shared
+              mountPath: /usr/src/app/shared

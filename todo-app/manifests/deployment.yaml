@@ -12,6 +12,20 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+        - name: todo-app
+          persistentVolumeClaim:
+            claimName: todo-app-claim
       containers:
         - name: todo-app
-          image: vesajo/todo-app@sha256:875d2125e2ff100961c70f0435939e2dd8ce95a69e25e03f510e017e9ca4c243
+          image: vesajo/todo-app@sha256:36e0a6be198084a08d436eae1564bac358241f909a21a769fed57c26ec2fd022
+          volumeMounts:
+            - name: todo-app
+              mountPath: /usr/src/app/files
+          resources:
+            requests:
+              memory: '128Mi'
+              cpu: '250m'
+            limits:
+              memory: '256Mi'
+              cpu: '500m'

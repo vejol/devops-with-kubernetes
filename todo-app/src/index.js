@@ -1,7 +1,7 @@
-import { createServer } from 'http'
 import axios from 'axios'
-import path from 'path'
 import fs from 'fs'
+import http from 'http'
+import path from 'path'
 
 const PORT = process.env.PORT || 3001
 
@@ -28,8 +28,24 @@ setInterval(async () => {
   getNewImage()
 }, 3600000) // 3600000ms=60min
 
-const server = createServer((req, res) => {
-  if (req.url === '/files/image.jpg') {
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    fs.readFile(
+      path.join('/', 'usr', 'src', 'app', 'index.html'),
+      (err, data) => {
+        if (err) {
+          res.statusCode = 500
+          res.setHeader('Content-Type', 'text/plain')
+          res.end('Error reading index.html file')
+          console.error('Error reading index.html file', err)
+        } else {
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'text/html')
+          res.end(data)
+        }
+      }
+    )
+  } else if (req.url === '/files/image.jpg') {
     if (fs.existsSync(filePath)) {
       fs.readFile(filePath, (err, data) => {
         if (err) {
@@ -49,11 +65,9 @@ const server = createServer((req, res) => {
       res.end('Image not found')
     }
   } else {
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/html')
-    res.end(
-      `<img src="/files/image.jpg" alt="Random image" style="max-height: 400px;"/>`
-    )
+    res.statusCode = 404
+    res.setHeader('Content-Type', 'text/plain')
+    res.end('Not Found')
   }
 })
 

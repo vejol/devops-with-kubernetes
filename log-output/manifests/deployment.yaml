@@ -32,12 +32,10 @@ spec:
               memory: '256Mi'
               cpu: '500m'
         - name: hash-outputter
-          image: vesajo/hash-outputter@sha256:aacbfd39fceed9da64a2b7fd351533983216a7625c082e8644770cda8defbdf4
+          image: vesajo/hash-outputter@sha256:6d2b759604c053b41589117b47deaf53b162d1bfe4926bf5d72886dca6a78c8a
           volumeMounts:
             - name: log-output-volume
               mountPath: /usr/src/app/files
-            - name: shared
-              mountPath: /usr/src/app/shared
           resources:
             requests:
               memory: '128Mi'

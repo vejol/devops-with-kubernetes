@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: log-output-claim
 spec:
-  storageClassName: my-pv
+  storageClassName: log-output-pv
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 100Mi

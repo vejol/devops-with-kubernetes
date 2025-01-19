@@ -18,10 +18,10 @@ spec:
             claimName: todo-app-claim
       containers:
         - name: todo-app
-          image: vesajo/todo-app@sha256:9e98a19f415e197cfda55da0705684d94ddb540eb0ac075ae85a66b8a9406814
+          image: vesajo/todo-app@sha256:532a924899fc017bd171e74f6ae6015e4ee00b7ff75b558f24bc90e5536cda4e
           volumeMounts:
             - name: todo-app
-              mountPath: /usr/src/app/files
+              mountPath: /usr/src/app/public/images
           resources:
             requests:
               memory: '128Mi'

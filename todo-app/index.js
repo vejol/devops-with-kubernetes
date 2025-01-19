@@ -5,36 +5,9 @@ const path = require('path')
 
 const PORT = process.env.PORT || 3001
 
-const directory = path.join(__dirname, 'files')
+const directory = path.join(__dirname, 'public', 'images')
 const filePath = path.join(directory, 'image.jpg')
 const imageUrl = 'https://picsum.photos/1200'
-
-const html = `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo App</title>
-  </head>
-  <body>
-    <div class="container">
-      <img
-        src="/files/image.jpg"
-        alt="Random image"
-        style="max-height: 400px"
-      />
-      <form>
-        <input type="text" />
-        <button type="submit">create TODO</button>
-      </form>
-      <ul>
-        <li>Write some Python</li>
-        <li>Learn C++</li>
-      </ul>
-    </div>
-  </body>
-</html>`
 
 const getNewImage = async () => {
   const response = await axios.get(imageUrl, { responseType: 'stream' })
@@ -53,9 +26,30 @@ setInterval(async () => {
 
 const app = express()
 
-app.use('/files', express.static(directory))
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
+  const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <title>Todo App</title>
+        <script type="application/javascript" src="/public/main.js"></script>
+      </head>
+      <body>
+          <img
+            src="/public/images/image.jpg"
+            alt="Random image"
+            style="max-height: 400px"
+          />
+          <form id="todos_form">
+            <input id="content" type="text" maxlength="140" required />
+            <button type="submit">create TODO</button>
+          </form>
+          <div id="todos">
+          </div>
+      </body>
+    </html>`
   res.send(html)
 })
 

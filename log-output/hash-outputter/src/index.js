@@ -4,13 +4,23 @@ import { readFileSync } from 'fs'
 
 const PORT = process.env.PORT || 3001
 const pingPongUrl = 'http://ping-pong-svc:2345/pingpong/count'
-const hashFilePath = path.join('/', 'usr', 'src', 'app', 'files', 'hash.txt')
+const directory = path.join('/', 'usr', 'src', 'app')
+const hashFilePath = path.join(directory, 'files', 'hash.txt')
+const infoFilePath = path.join(directory, 'info', 'information.txt')
 
 const readHash = () => {
   try {
     return readFileSync(hashFilePath, 'utf8')
   } catch (err) {
     console.error('Error reading hash file', err)
+  }
+}
+
+const readInformation = () => {
+  try {
+    return readFileSync(infoFilePath, 'utf8')
+  } catch (err) {
+    console.error('Error reading information.txt file', err)
   }
 }
 
@@ -36,8 +46,10 @@ const server = createServer((req, res) => {
 
   getPingCount().then((count) => {
     res.end(`
-        <p>${readHash()}</p>
-        <p>Ping / Pongs: ${count}</p>
+        <div>file content: ${readInformation()}</div>
+        <div>env variable: MESSAGE=${process.env.MESSAGE}</div>
+        <div>${readHash()}</div>
+        <div>Ping / Pongs: ${count}</div>
 `)
   })
 })

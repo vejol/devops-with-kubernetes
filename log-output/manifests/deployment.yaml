@@ -19,6 +19,12 @@ spec:
         - name: shared
           persistentVolumeClaim:
             claimName: log-output-claim
+        - name: information-configmap
+          configMap:
+            name: log-output-configmap
+            items:
+              - key: 'information'
+                path: 'information.txt'
       containers:
         - name: hash-generator
           image: vesajo/hash-generator@sha256:a7a13955b47b9ce145fa1511e7fde1e771505c49b52e18e4dc4cc48b425b8322
@@ -33,10 +39,18 @@ spec:
               memory: '256Mi'
               cpu: '500m'
         - name: hash-outputter
-          image: vesajo/hash-outputter@sha256:6d2b759604c053b41589117b47deaf53b162d1bfe4926bf5d72886dca6a78c8a
+          image: vesajo/hash-outputter@sha256:ddfd1c3192e892a0330b7ef58e1538a8131bef4ba8cf0e64d5a5529e72c1f74e
+          env:
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-configmap
+                  key: message
           volumeMounts:
             - name: log-output-volume
               mountPath: /usr/src/app/files
+            - name: information-configmap
+              mountPath: /usr/src/app/info
           resources:
             requests:
               memory: '128Mi'

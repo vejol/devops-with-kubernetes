@@ -15,7 +15,17 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:2eee204c0a9be6cd73dabcc750bb93405249a509ee86ac8edab1a1d57c6caf7e
+          image: vesajo/ping-pong@sha256:25e28b964fc95c36215c53a12153b35b02a7fcd5968dd0053e00868f9b740cda
+          env:
+            - name: PGHOST
+              value: postgres-svc
+            - name: PGUSER
+              value: postgres
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: POSTGRES_PASSWORD
           resources:
             requests:
               memory: '128Mi'

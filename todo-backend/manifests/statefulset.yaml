@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: ping-pong-stset
-  namespace: exercises
+  name: todo-app-stset
+  namespace: todo-app
 spec:
   serviceName: postgres-svc
   replicas: 1
@@ -17,30 +17,30 @@ spec:
       containers:
         - name: postgres
           image: postgres:17.2
-          envFrom:
-            - secretRef:
-                name: postgres-password
           ports:
             - name: web
               containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: postgres-password
           volumeMounts:
-            - name: ping-pong-data-storage
+            - name: todo-app-data-storage
               mountPath: /var/lib/postgresql/data
   volumeClaimTemplates:
     - metadata:
-        name: ping-pong-data-storage
+        name: todo-app-data-storage
       spec:
         accessModes: ['ReadWriteOnce']
         storageClassName: local-path
         resources:
           requests:
-            storage: 100Mi
+            storage: 10Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: postgres-svc
-  namespace: exercises
+  namespace: todo-app
   labels:
     app: postgres
 spec:

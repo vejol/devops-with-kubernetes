@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-todo
+  namespace: todo-app
+spec:
+  schedule: '0 * * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: daily-todo
+              image: vesajo/daily-todo@sha256:c6a1393ed436a3d6ebaacd1235330d3ebe23a5ca1ceb6d73317a03afb87e10b4
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: BACKEND_URL
+                  value: http://todo-backend-svc:2345
+                - name: WIKI_URL
+                  value: https://en.wikipedia.org/wiki/Special:Random
+          restartPolicy: OnFailure

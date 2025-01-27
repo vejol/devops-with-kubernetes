@@ -56,6 +56,13 @@ app.get('/todos', async (req, res) => {
 
 app.post('/todos', async (req, res) => {
   const content = req.body.content
+  console.log(`Received todo: ${content}`)
+  if (content.length > 140) {
+    const errorMessage =
+      'Error: The todo content exceeds the maximum allowed length of 140 characters. Please shorten your todo and try again.'
+    console.error(errorMessage)
+    return res.status(400).send(errorMessage)
+  }
   const todo = await addTodo(content)
   res.status(201).json(todo)
 })

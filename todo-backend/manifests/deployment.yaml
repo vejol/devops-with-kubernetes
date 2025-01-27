@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: vesajo/todo-backend@sha256:366bbfcdccb785ab0b448af8c14e63f869882753a453b340fe2f5c82cd8b1f1c
+          image: vesajo/todo-backend@sha256:cb317085dcee71444a9cce32ace56e241f38e1fb1e04d8e7a5b45fec2854ee6e
           env:
             - name: PGHOST
               value: postgres-svc

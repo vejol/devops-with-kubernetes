@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ping-pong
-          image: vesajo/ping-pong@sha256:25e28b964fc95c36215c53a12153b35b02a7fcd5968dd0053e00868f9b740cda
+          image: vesajo/ping-pong@sha256:4e7f845e2f94fbfb1676297b98e5f7cecb6bb8b7dec13ee7db04d925ec36f1ab
           env:
             - name: PGHOST
               value: postgres-svc

@@ -31,16 +31,11 @@ spec:
           volumeMounts:
             - name: log-output-volume
               mountPath: /usr/src/app/files
-          resources:
-            requests:
-              memory: '128Mi'
-              cpu: '250m'
-            limits:
-              memory: '256Mi'
-              cpu: '500m'
         - name: hash-outputter
-          image: vesajo/hash-outputter@sha256:ddfd1c3192e892a0330b7ef58e1538a8131bef4ba8cf0e64d5a5529e72c1f74e
+          image: vesajo/hash-outputter@sha256:65257c42c982a25e3c990234c4bda34af81716399516d2e53dffdad204411522
           env:
+            - name: PING_PONG_URL
+              value: http://ping-pong-svc:80
             - name: MESSAGE
               valueFrom:
                 configMapKeyRef:
@@ -51,10 +46,3 @@ spec:
               mountPath: /usr/src/app/files
             - name: information-configmap
               mountPath: /usr/src/app/info
-          resources:
-            requests:
-              memory: '128Mi'
-              cpu: '250m'
-            limits:
-              memory: '256Mi'
-              cpu: '500m'

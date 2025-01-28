@@ -3,7 +3,7 @@ import { createServer } from 'http'
 import { readFileSync } from 'fs'
 
 const PORT = process.env.PORT || 3001
-const pingPongUrl = 'http://ping-pong-svc:2345/pingpong/count'
+const PING_PONG_URL = `${process.env.PING_PONG_URL}/pingpong/count`
 const directory = path.join('/', 'usr', 'src', 'app')
 const hashFilePath = path.join(directory, 'files', 'hash.txt')
 const infoFilePath = path.join(directory, 'info', 'information.txt')
@@ -26,7 +26,7 @@ const readInformation = () => {
 
 const getPingCount = async () => {
   try {
-    const response = await fetch(pingPongUrl)
+    const response = await fetch(PING_PONG_URL)
     if (!response.ok) {
       throw new Error('Network response was not ok ' + response.statusText)
     }

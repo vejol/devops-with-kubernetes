@@ -45,6 +45,10 @@ const server = createServer(async (req, res) => {
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
 
+  if (req.url === '/') {
+    res.end('Hello there!')
+  }
+
   if (req.url === '/pingpong') {
     const newCounterValue = (await getCounterValue()) + 1
     await updateCounterValue(newCounterValue)

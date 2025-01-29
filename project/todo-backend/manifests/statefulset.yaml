@@ -24,17 +24,17 @@ spec:
             - secretRef:
                 name: postgres-password
           volumeMounts:
-            - name: todo-app-data-storage
+            - name: todo-app-postgres-storage
               mountPath: /var/lib/postgresql/data
+              subPath: postgres
   volumeClaimTemplates:
     - metadata:
-        name: todo-app-data-storage
+        name: todo-app-postgres-storage
       spec:
         accessModes: ['ReadWriteOnce']
-        storageClassName: local-path
         resources:
           requests:
-            storage: 10Mi
+            storage: 100Mi
 ---
 apiVersion: v1
 kind: Service

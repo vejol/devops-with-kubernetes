@@ -38,10 +38,10 @@ jobs:
           project_id: '${{ env.PROJECT_ID }}'
           location: '${{ env.GKE_ZONE }}'
 
-      - name: Build
-        run: docker build --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" .
+      - name: Build frontend
+        run: docker build -f ./project/todo-app/Dockerfile --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" .
 
-      - name: Publish
+      - name: Publish frontend
         run: docker push "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA"
 
       - name: Set up Kustomize

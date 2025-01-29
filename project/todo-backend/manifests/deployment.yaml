@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: vesajo/todo-backend@sha256:cb317085dcee71444a9cce32ace56e241f38e1fb1e04d8e7a5b45fec2854ee6e
+          image: vesajo/todo-backend@sha256:ab09a963de05d9412acceb0a337b9b498daacae9924fe428efdf183c98a7dc7f
           env:
             - name: PGHOST
               value: postgres-svc
@@ -26,10 +26,3 @@ spec:
                 secretKeyRef:
                   name: postgres-password
                   key: POSTGRES_PASSWORD
-          resources:
-            requests:
-              memory: '128Mi'
-              cpu: '250m'
-            limits:
-              memory: '256Mi'
-              cpu: '500m'

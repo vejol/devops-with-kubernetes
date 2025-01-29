@@ -2,6 +2,7 @@ const cors = require('cors')
 const express = require('express')
 const pg = require('pg')
 
+const WIKI_URL = 'https://en.wikipedia.org/wiki/Special:Random'
 const PORT = process.env.PORT || 3002
 const client = new pg.Client()
 
@@ -44,10 +45,26 @@ addTodo = async (content) => {
   }
 }
 
+const getRandomWikiUrl = async () => {
+  const response = await fetch(WIKI_URL, { redirect: 'manual' })
+  return response.headers.get('Location')
+}
+
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+
+app.get('/', (req, res) => {
+  res.sendStatus(200)
+})
+
+app.post('/todos/random', async (req, res, next) => {
+  const randomWikiUrl = await getRandomWikiUrl()
+  req.body.content = `Read ${randomWikiUrl}`
+  req.url = '/todos'
+  next()
+})
 
 app.get('/todos', async (req, res) => {
   const todos = await getTodos()

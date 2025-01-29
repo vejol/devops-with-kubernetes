@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-todo
+  namespace: todo-app
+spec:
+  schedule: '0 * * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: daily-todo
+              image: curlimages/curl:8.11.1
+              command:
+                [
+                  'curl',
+                  '-X',
+                  'POST',
+                  '-H',
+                  'Content-Length: 0',
+                  'http://todo-backend-svc:2345/todos/random',
+                ]
+          restartPolicy: OnFailure

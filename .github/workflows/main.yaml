@@ -41,10 +41,12 @@ jobs:
           location: '${{ env.GKE_ZONE }}'
 
       - name: Build frontend
-        run: docker build -f ./project/todo-app/Dockerfile --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" ./project/todo-app
+        working-directory: ./project/todo-app
+        run: docker build --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" .
 
       - name: Build backend
-        run: docker build -f ./project/todo-backend/Dockerfile --tag "gcr.io/$PROJECT_ID/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" ./project/todo-backend
+        working-directory: ./project/todo-backend
+        run: docker build --tag "gcr.io/$PROJECT_ID/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA" .
 
       - name: Publish frontend
         run: docker push "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA"
@@ -56,9 +58,10 @@ jobs:
         uses: imranismail/setup-kustomize@v2.1.0
 
       - name: Deploy
+        working-directory: ./project
         run: |-
           kustomize edit set image FRONTEND_IMAGE=gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA
           kustomize edit set image BACKEND_IMAGE=gcr.io/$PROJECT_ID/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA
-          kustomize build ./project/ | kubectl apply -f -
+          kustomize build . | kubectl apply -f -
           kubectl rollout status deployment $SERVICE
           kubectl get services -o wide

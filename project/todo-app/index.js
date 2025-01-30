@@ -37,6 +37,7 @@ app.get('/', (req, res) => {
         <script type="application/javascript" src="/public/main.js"></script>
       </head>
       <body>
+          <div>Test content</div>
           <img
             src="/public/images/image.jpg"
             alt="Random image"

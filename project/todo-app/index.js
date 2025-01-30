@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
         <script type="application/javascript" src="/public/main.js"></script>
       </head>
       <body>
-          <div>Change from main</div>
+          <div>New test from test branch</div>
           <img
             src="/public/images/image.jpg"
             alt="Random image"

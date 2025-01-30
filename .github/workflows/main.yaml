@@ -43,8 +43,14 @@ jobs:
       - name: Build frontend
         run: docker build -f ./project/todo-app/Dockerfile --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" ./project/todo-app
 
+      - name: Build backend
+        run: docker build -f ./project/todo-backend/Dockerfile --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" ./project/todo-backend
+
       - name: Publish frontend
         run: docker push "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA"
+
+      - name: Publish backend
+        run: docker push "gcr.io/$PROJECT_ID/$BACKEND_IMAGE:$BRANCH-$GITHUB_SHA"
 
       - name: Set up Kustomize
         uses: imranismail/setup-kustomize@v2.1.0

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-backend
-          image: BACKEND_IMAGE
+          image: REGISTRY/TODO_BACKEND_IMAGE
           env:
             - name: PGHOST
               value: postgres-svc

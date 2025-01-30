@@ -10,7 +10,7 @@ resources:
   - todo-backend/manifests/statefulset.yaml
   - todo-backend/manifests/cronjob.yaml
 images:
-  - name: FRONTEND_IMAGE
+  - name: REGISTRY/TODO_APP_IMAGE
     newName: vesajo/todo-app@sha256:532a924899fc017bd171e74f6ae6015e4ee00b7ff75b558f24bc90e5536cda4e
-  - name: BACKEND_IMAGE
+  - name: REGISTRY/TODO_BACKEND_IMAGE
     newName: vesajo/todo-backend@sha256:ab09a963de05d9412acceb0a337b9b498daacae9924fe428efdf183c98a7dc7f

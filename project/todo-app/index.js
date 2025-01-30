@@ -37,7 +37,6 @@ app.get('/', (req, res) => {
         <script type="application/javascript" src="/public/main.js"></script>
       </head>
       <body>
-          <div>New test main branch XDD</div>
           <img
             src="/public/images/image.jpg"
             alt="Random image"

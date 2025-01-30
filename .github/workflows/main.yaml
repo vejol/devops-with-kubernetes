@@ -41,7 +41,7 @@ jobs:
           location: '${{ env.GKE_ZONE }}'
 
       - name: Build frontend
-        run: docker build -f ./project/todo-app/Dockerfile --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" .
+        run: docker build -f ./project/todo-app/Dockerfile --tag "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA" ./project/todo-app
 
       - name: Publish frontend
         run: docker push "gcr.io/$PROJECT_ID/$FRONTEND_IMAGE:$BRANCH-$GITHUB_SHA"

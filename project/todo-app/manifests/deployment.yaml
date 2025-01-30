@@ -19,7 +19,7 @@ spec:
             claimName: todo-app-claim
       containers:
         - name: todo-app
-          image: vesajo/todo-app@sha256:532a924899fc017bd171e74f6ae6015e4ee00b7ff75b558f24bc90e5536cda4e
+          image: FRONTEND_IMAGE
           volumeMounts:
             - name: todo-app
               mountPath: /usr/src/app/public/images

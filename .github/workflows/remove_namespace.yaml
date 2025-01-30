@@ -36,4 +36,9 @@ jobs:
           location: '${{ env.GKE_ZONE }}'
 
       - name: Delete Kubernetes namespace
-        run: kubectl delete namespace ${github.event.ref}
+        run: |
+          echo "github.event.ref: ${github.event.ref}"
+          echo "GITHUB_REF#refs/heads/: ${GITHUB_REF#refs/heads/}"
+          echo "github.event.ref: ${{ github.event.ref }}"
+          echo "github.event.ref#refs/heads/: ${ github.event.ref#refs/heads/ }"
+          kubectl delete namespace ${github.event.ref}

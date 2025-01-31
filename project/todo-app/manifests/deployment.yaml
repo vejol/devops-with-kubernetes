@@ -25,3 +25,7 @@ spec:
           volumeMounts:
             - name: todo-app
               mountPath: /usr/src/app/public/images
+          resources:
+            limits:
+              cpu: '200m'
+              memory: '40Mi'

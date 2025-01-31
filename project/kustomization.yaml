@@ -8,7 +8,7 @@ resources:
   - todo-backend/manifests/deployment.yaml
   - todo-backend/manifests/service.yaml
   - todo-backend/manifests/statefulset.yaml
-  - todo-backend/manifests/cronjob.yaml
+  - todo-backend/manifests/hourly-todo-cronjob.yaml
 images:
   - name: REGISTRY/TODO_APP_IMAGE
     newName: vesajo/todo-app@sha256:532a924899fc017bd171e74f6ae6015e4ee00b7ff75b558f24bc90e5536cda4e

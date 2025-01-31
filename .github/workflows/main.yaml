@@ -2,8 +2,6 @@ name: Release todo project
 
 on:
   push:
-    branches:
-      - 'non-existent'
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT_ID }}

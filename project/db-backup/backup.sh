@@ -2,11 +2,14 @@
 echo "Starting backup script..."
 set -e
 
-echo "Taking database backup..."
-pg_dump -v $POSTGRES_URL > /usr/src/app/todo-backup.sql
-echo "Database backup completed."
+TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
 
-gsutil cp /usr/src/app/todo-backup.sql gs://vejolkko-todo-backup/todo-database-backup.sql
+echo "Using pg_dump tool to backup the database..."
+pg_dump -v $POSTGRES_URL > /usr/src/app/backup.sql
+echo "pg_dump command Succeeded."
+
+echo "Uploading backup to Google Cloud Storage..."
+gsutil cp /usr/src/app/backup.sql gs://vejolkko-todo-backup/backup_$TIMESTAMP.sql
 echo "Backup copied to Google Cloud Storage."
 
 echo "Backup script completed."

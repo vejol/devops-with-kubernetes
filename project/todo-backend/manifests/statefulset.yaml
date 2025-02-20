@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: todo-app-stset
-  namespace: todo-app
 spec:
   serviceName: postgres-svc
   replicas: 1
@@ -16,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:17.2
+          image: postgres:16
           ports:
             - name: web
               containerPort: 5432
@@ -40,7 +39,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres-svc
-  namespace: todo-app
   labels:
     app: postgres
 spec:

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup-database
+spec:
+  schedule: '0 2 * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup-database
+              image: vesajo/todo-db-backup@sha256:0a0bf92f948eb4cdd31c608a3de04d170b105fb7667ce9fdf8aa4f605fe4de1d
+              command: ['sh', '/usr/src/app/backup.sh']
+              envFrom:
+                - secretRef:
+                    name: postgres-password
+              env:
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  valueFrom:
+                    secretKeyRef:
+                      name: google-sa-key
+                      key: GOOGLE_SERVICE_ACCOUNT_KEY
+                - name: POSTGRES_URL
+                  value: postgresql://postgres:$(POSTGRES_PASSWORD)@postgres-svc/postgres
+          restartPolicy: Never

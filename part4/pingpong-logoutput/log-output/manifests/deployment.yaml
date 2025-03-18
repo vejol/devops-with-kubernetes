@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: exercises
+  name: log-output-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output
+  template:
+    metadata:
+      labels:
+        app: log-output
+    spec:
+      volumes:
+        - name: log-output-volume
+          emptyDir: {}
+        - name: shared
+          persistentVolumeClaim:
+            claimName: log-output-claim
+        - name: information-configmap
+          configMap:
+            name: log-output-configmap
+            items:
+              - key: 'information'
+                path: 'information.txt'
+      containers:
+        - name: hash-generator
+          image: vesajo/hash-generator@sha256:a7a13955b47b9ce145fa1511e7fde1e771505c49b52e18e4dc4cc48b425b8322
+          volumeMounts:
+            - name: log-output-volume
+              mountPath: /usr/src/app/files
+          resources:
+            limits:
+              cpu: '250m'
+              memory: '100Mi'
+            requests:
+              cpu: '50m'
+              memory: '40Mi'
+        - name: hash-outputter
+          image: vesajo/hash-outputter@sha256:65257c42c982a25e3c990234c4bda34af81716399516d2e53dffdad204411522
+          env:
+            - name: PING_PONG_URL
+              value: http://ping-pong-svc:80
+            - name: MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-configmap
+                  key: message
+          volumeMounts:
+            - name: log-output-volume
+              mountPath: /usr/src/app/files
+            - name: information-configmap
+              mountPath: /usr/src/app/info
+          resources:
+            limits:
+              cpu: '250m'
+              memory: '100Mi'
+            requests:
+              cpu: '50m'
+              memory: '40Mi'

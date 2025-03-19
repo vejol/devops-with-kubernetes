@@ -58,6 +58,16 @@ const server = createServer(async (req, res) => {
   if (req.url === '/pingpong/count') {
     res.end(`${await getCounterValue()}`)
   }
+
+  if (req.url === '/pingpong/healthz') {
+    try {
+      await client.query('SELECT 1')
+      res.end('OK')
+    } catch (err) {
+      res.statusCode = 500
+      res.end('Database connection failed')
+    }
+  }
 })
 
 server.listen(PORT)

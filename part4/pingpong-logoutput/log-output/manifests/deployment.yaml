@@ -39,7 +39,13 @@ spec:
               cpu: '50m'
               memory: '40Mi'
         - name: hash-outputter
-          image: vesajo/hash-outputter@sha256:65257c42c982a25e3c990234c4bda34af81716399516d2e53dffdad204411522
+          image: vesajo/hash-outputter@sha256:8cd81945113c335939e7d2ae87817b988d67797375d5a9f433284c92edf4363c
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /log-output/healthz
+              port: 3001
           env:
             - name: PING_PONG_URL
               value: http://ping-pong-svc:80

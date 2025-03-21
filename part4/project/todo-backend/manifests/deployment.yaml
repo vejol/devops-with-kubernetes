@@ -8,8 +8,6 @@ spec:
   selector:
     matchLabels:
       app: todo-backend
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -18,6 +16,12 @@ spec:
       containers:
         - name: todo-backend
           image: REGISTRY/TODO_BACKEND_IMAGE
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /todos/healthz
+              port: 3002
           env:
             - name: PGHOST
               value: postgres-svc

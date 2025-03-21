@@ -84,6 +84,16 @@ app.post('/todos', async (req, res) => {
   res.status(201).json(todo)
 })
 
+app.use('/todos/healthz', async (req, res) => {
+  try {
+    await client.query('SELECT 1')
+    res.end('OK')
+  } catch (err) {
+    res.statusCode = 503
+    res.end('Database not available')
+  }
+})
+
 app.use((req, res) => {
   res.status(404).send('Not found')
 })

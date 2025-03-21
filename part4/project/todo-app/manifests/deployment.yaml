@@ -8,8 +8,6 @@ spec:
   selector:
     matchLabels:
       app: todo-app
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -22,6 +20,15 @@ spec:
       containers:
         - name: todo-app
           image: REGISTRY/TODO_APP_IMAGE
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+              path: /healthz
+              port: 3001
+          env:
+            - name: TODO_BACKEND_SVC_URL
+              value: http://todo-backend-svc:2345
           volumeMounts:
             - name: todo-app
               mountPath: /usr/src/app/public/images

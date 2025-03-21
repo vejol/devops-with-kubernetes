@@ -53,6 +53,20 @@ app.get('/', (req, res) => {
   res.send(html)
 })
 
+app.get('/healthz', (req, res) => {
+  const baseUrl = process.env.TODO_BACKEND_SVC_URL
+  axios
+    .get(`${baseUrl}/todos`)
+    .then((result) => {
+      console.log('result:', result)
+      res.send('OK')
+    })
+    .catch((err) => {
+      console.log('error:', err)
+      res.status(503).send('Failed to fetch todos')
+    })
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

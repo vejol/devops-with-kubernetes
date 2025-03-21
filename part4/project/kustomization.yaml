@@ -11,6 +11,6 @@ resources:
   - todo-backend/manifests/hourly-todo-cronjob.yaml
 images:
   - name: REGISTRY/TODO_APP_IMAGE
-    newName: vesajo/todo-app@sha256:532a924899fc017bd171e74f6ae6015e4ee00b7ff75b558f24bc90e5536cda4e
+    newName: vesajo/todo-app@sha256:f89e2f5d27b08212de0e20a20fa705cf2515ba3035b0acb3ac003f95334c9ade
   - name: REGISTRY/TODO_BACKEND_IMAGE
-    newName: vesajo/todo-backend@sha256:ab09a963de05d9412acceb0a337b9b498daacae9924fe428efdf183c98a7dc7f
+    newName: vesajo/todo-backend@sha256:d3d192c5ccfb1685fbe6f023cb0ace64bb6cf781eb2b473274e89c85f65eff09
